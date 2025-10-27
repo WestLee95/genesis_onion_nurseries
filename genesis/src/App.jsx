@@ -1,0 +1,490 @@
+import "./App.css";
+
+function App() {
+  return (
+    <>
+      {/* Header */}
+      <header class="w-full absolute top-0 left-0 z-10">
+        {/*REMEMBER to do JUSTIFY-BETWEEN when you get to the full website*/}
+        <div class="container mx-auto px-4 py-6 flex justify-center items-center">
+          <div class="text-2xl font-['Pacifico'] text-white">logo</div>
+          {/*<nav class="hidden md:flex space-x-8">
+            <a href="#" class="text-white hover:text-secondary transition-colors">Home</a>
+            <a href="#" class="text-white hover:text-secondary transition-colors">Shop</a>
+            <a href="#" class="text-white hover:text-secondary transition-colors">About</a>
+            <a href="#" class="text-white hover:text-secondary transition-colors">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 flex items-center justify-center">
+            <i class="ri-search-line text-white"></i>
+            </div>
+            <div class="w-10 h-10 flex items-center justify-center">
+            <i class="ri-shopping-cart-line text-white"></i>
+            </div>
+            <div class="w-10 h-10 flex items-center justify-center">
+            <i class="ri-user-line text-white"></i>
+            </div>
+            </div>*/}
+        </div>
+      </header>
+      {/* Hero Section */}
+      <section class="relative min-h-screen flex items-center">
+        <div class="absolute inset-0 z-0">
+          {/*VID-HERO*/}
+          <video class="w-full h-full object-cover" autoplay muted loop>
+            <source src="imgs/28.mp4" type="video/mp4" />
+          </video>
+          <div class="absolute inset-0 bg-primary bg-opacity-50"></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-1">
+          <div class="max-w-2xl">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-2">GET</h2>
+            <div class="text-7xl md:text-8xl font-bold text-secondary mb-4">
+              FRESH
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+              ONION
+              <br />
+              SEEDLINGS!
+            </h1>
+            <p class="text-white text-opacity-90 mb-8">
+              To <span class="font-bold">know the number of seedlings</span> for
+              your farm, use the calculator below.
+            </p>
+            {/*<a
+            href="#calculator"
+            class="bg-secondary text-white py-3 px-8 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">
+            Calculate
+          </a>*/}
+          </div>
+        </div>
+      </section>
+      {/* Product Introduction & Calculator */}
+      <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row items-center justify-between">
+            <div
+              id="calculator"
+              class="flex flex-col items-center p-4 outline outline-2 outline-primary rounded-md mb-2"
+            >
+              <h2 class="text-2xl font-bold mb-1">Seedlings Calculator</h2>
+              <div class="calculator bg-white rounded-lg p-6 mb-1 w-full max-w-md space-y-1">
+                <label class="flex items-center justify-between">
+                  <span class="text-sm font-medium">Spacing (cm):</span>
+                  <input
+                    type="number"
+                    id="spacing"
+                    min="1"
+                    class="w-[150px] border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  />
+                </label>
+                <label class="flex items-center justify-between">
+                  <span class="text-sm font-medium">Bed Length (m):</span>
+                  <input
+                    type="number"
+                    id="bedLength"
+                    min="1"
+                    class="w-[150px] border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  />
+                </label>
+                <label class="flex items-center justify-between">
+                  <span class="text-sm font-medium">Driplines:</span>
+                  <input
+                    type="number"
+                    id="driplines"
+                    min="1"
+                    class="w-[150px] border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  />
+                </label>
+                <label class="flex items-center justify-between">
+                  <span class="text-sm font-medium">Number of Beds:</span>
+                  <input
+                    type="number"
+                    id="beds"
+                    min="1"
+                    class="w-[150px] border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  />
+                </label>
+                <button
+                  onclick="calculateSeedlings()"
+                  class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-md transition-all duration-200"
+                >
+                  Calculate
+                </button>
+                <p
+                  id="seedlingsResult"
+                  class="text-lg font-medium text-gray-700"
+                >
+                  Total Seedlings: -
+                </p>
+              </div>
+
+              <h2 class="text-2xl font-bold">Cost Calculator</h2>
+              <div class="calculator bg-white shadow-md rounded-lg p-6 w-full max-w-md space-y-1">
+                <label class="flex items-center justify-between">
+                  <span class="text-sm font-medium">Number of Seedlings:</span>
+                  <input
+                    type="number"
+                    id="seedlingsCount"
+                    oninput="calculateCost()"
+                    class="w-[150px] border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  />
+                </label>
+                <p id="costResult" class="text-lg font-medium text-gray-700">
+                  Total Cost: -
+                </p>
+              </div>
+            </div>
+            <div class="relative mt-4">
+              <div class="w-64 h-64 border-2 border-dashed border-primary rounded-full flex items-center justify-center">
+                <div class="text-center p-8">
+                  <p class="text-gray-700">100% reliable</p>
+                  <p class="text-primary font-medium">
+                    GROW PERFECTION, REAP PERFECTION
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="max-w-md mt-8 md:mt-0">
+              <p class="text-gray-700 mb-6">
+                Our seedlings, with their healthy and vigorous growth, are sure
+                to become your farm's most cherished plants. Discover our
+                collection today, and find your favorite to create a stunning
+                harvest.
+              </p>
+              <a
+                href="#varieties"
+                class="text-primary font-medium flex items-center"
+              >
+                View Collection
+                <div class="w-6 h-6 flex items-center justify-center ml-2">
+                  <i class="ri-arrow-down-line"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Product Grid */}
+      <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+          <h2
+            id="varieties"
+            class="text-3xl font-bold text-center text-gray-800 mb-12"
+          >
+            Premium Varieties
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Product 1 */}
+            <div class="bg-white rounded shadow-md overflow-hidden transition-transform hover:shadow-lg hover:-translate-y-1">
+              <div class="h-64 overflow-hidden">
+                {/*GOOGLE DRIVE IMG*/}
+                <img
+                  src="imgs/DJI_0037.JPG"
+                  alt="Neptune"
+                  class="w-full h-full object-cover object-top"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Neptune</h3>
+                <p class="text-gray-600 mb-4">
+                  Sweet and flavorful variety, perfect for salads and garnishes.
+                </p>
+                <div class="flex justify-between items-center">
+                  <div>
+                    {/*<span class="text-gray-400 line-through">$12.99</span>*/}
+                    <span class="text-primary font-bold ml-2">KES 0.80</span>
+                  </div>
+                  {/*<button class="bg-primary text-white py-2 px-4 !rounded-button hover:bg-opacity-90 transition-all whitespace-nowrap">Add to Cart</button>*/}
+                </div>
+              </div>
+            </div>
+            {/* Product 2 */}
+            <div class="bg-white rounded shadow-md overflow-hidden transition-transform hover:shadow-lg hover:-translate-y-1">
+              <div class="h-64 overflow-hidden">
+                {/*GOOGLE DRIVE IMG*/}
+                <img
+                  src="imgs/DJI_0037.JPG"
+                  alt="Jamber"
+                  class="w-full h-full object-cover object-top"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Jamber</h3>
+                <p class="text-gray-600 mb-4">
+                  Versatile cooking variety with excellent storage properties.
+                </p>
+                <div class="flex justify-between items-center">
+                  <div>
+                    {/*<span class="text-gray-400 line-through">$12.99</span>*/}
+                    <span class="text-primary font-bold ml-2">KES 0.80</span>
+                  </div>
+                  {/*<button class="bg-primary text-white py-2 px-4 !rounded-button hover:bg-opacity-90 transition-all whitespace-nowrap">Add to Cart</button>*/}
+                </div>
+              </div>
+            </div>
+            {/* Product 3 */}
+            <div class="bg-white rounded shadow-md overflow-hidden transition-transform hover:shadow-lg hover:-translate-y-1">
+              <div class="h-64 overflow-hidden">
+                {/*GOOGLE DRIVE IMG*/}
+                <img
+                  src="imgs/DJI_0037.JPG"
+                  alt="Red Coach"
+                  class="w-full h-full object-cover object-top"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Red Coach</h3>
+                <p class="text-gray-600 mb-4">
+                  Mild and sweet flavor, ideal for fresh consumption.
+                </p>
+                <div class="flex justify-between items-center">
+                  <div>
+                    {/*<span class="text-gray-400 line-through">$12.99</span>*/}
+                    <span class="text-primary font-bold ml-2">KES 0.80</span>
+                  </div>
+                  {/*<button class="bg-primary text-white py-2 px-4 !rounded-button hover:bg-opacity-90 transition-all whitespace-nowrap">Add to Cart</button>*/}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Benefits Section */}
+      <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">
+            Why Choose Our Seedlings
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center p-6">
+              <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <i class="ri-leaf-line text-primary ri-3x"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">100% Local</h3>
+              <p class="text-gray-600">Grown in Kenya, for Kenya.</p>
+            </div>
+            <div class="text-center p-6">
+              <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <i class="ri-seedling-line text-primary ri-3x"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                High Germination Rate
+              </h3>
+              <p class="text-gray-600">
+                Our seedlings have a 95% success rate, ensuring your garden
+                thrives.
+              </p>
+            </div>
+            <div class="text-center p-6">
+              <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <i class="ri-truck-line text-primary ri-3x"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                Fast Delivery
+              </h3>
+              <p class="text-gray-600">
+                Carefully packaged and shipped within 24 hours to preserve
+                freshness.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Newsletter Section */}
+      <section class="py-16 bg-primary bg-opacity-5">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Stay Updated</h2>
+            <p class="text-gray-600 mb-8">
+              Follow our socials for tips, special offers, and seasonal updates.
+            </p>
+            <div class="flex flex-row gap-4 justify-center items-center">
+              <a
+                href="https://www.facebook.com/profile.php?id=61563010157563"
+                target="_blank"
+              >
+                <img
+                  src="imgs/facebook.png"
+                  alt=""
+                  class="w-10 h-10 transition delay-150 duration-300 bounce hover:scale-110 hover:-translate-y-1"
+                />
+              </a>
+              <a
+                href="https://www.instagram.com/genesisonionnurseries/"
+                target="_blank"
+              >
+                <img
+                  src="imgs/instagram(1).png"
+                  alt=""
+                  class="w-10 h-10 transition delay-150 duration-300 bounce hover:scale-110 hover:-translate-y-1"
+                />
+              </a>
+              {/*<input type="email" placeholder="Your email address" class="px-4 py-3 border-none rounded shadow-sm flex-grow max-w-md">
+<button class="bg-secondary text-white py-3 px-8 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">Subscribe</button>*/}
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Customer Reviews */}
+      <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">
+            What Our Customers Say
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-gray-50 p-6 rounded shadow-sm">
+              <div class="flex items-center mb-4">
+                <div class="text-primary">
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                </div>
+              </div>
+              <p class="text-gray-600 mb-4">
+                "The red onion seedlings I purchased were incredibly healthy and
+                robust. They've grown beautifully in my garden and produced the
+                sweetest onions I've ever tasted!"
+              </p>
+              <p class="font-medium text-gray-800">- Emily Mutuku</p>
+            </div>
+            <div class="bg-gray-50 p-6 rounded shadow-sm">
+              <div class="flex items-center mb-4">
+                <div class="text-primary">
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                </div>
+              </div>
+              <p class="text-gray-600 mb-4">
+                "As a first-time gardener, I was nervous about growing onions,
+                but these seedlings made it so easy! The planting instructions
+                were clear, and the customer service was excellent."
+              </p>
+              <p class="font-medium text-gray-800">- Reuben Kariuki</p>
+            </div>
+            <div class="bg-gray-50 p-6 rounded shadow-sm">
+              <div class="flex items-center mb-4">
+                <div class="text-primary">
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-fill"></i>
+                  <i class="ri-star-half-fill"></i>
+                </div>
+              </div>
+              <p class="text-gray-600 mb-4">
+                "I've been growing onions for years, and these are by far the
+                best seedlings I've ever purchased. The germination rate was
+                nearly 100%, and the growth has been phenomenal."
+              </p>
+              <p class="font-medium text-gray-800">- James Gikunju</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Footer */}
+      <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+          {/* REMEMBER grid is mispelled, correct it for full website*/}
+          <div class="gri gri-cols-1 md:gri-cols-4 flex flex-wrap gap-8 justify-center">
+            <div class="w-[300px]">
+              <div class="text-2xl font-['Pacifico'] text-white mb-4">logo</div>
+              <p class="text-gray-400">
+                Cultivating premium onion seedlings for you. Expertise & Care
+                guaranteed.
+              </p>
+            </div>
+            {/*<div>
+<h3 class="text-lg font-bold mb-4">Quick Links</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Shop</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-lg font-bold mb-4">Customer Service</h3>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Shipping Policy</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Returns & Refunds</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+</ul>
+</div>*/}
+            <div class="text-center">
+              <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+              <ul class="space-y-2">
+                <li class="flex items-center">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-map-pin-line text-gray-400"></i>
+                  </div>
+                  <span class="text-gray-400">
+                    Near Kitengela Boys, Kajiado, Kenya
+                  </span>
+                </li>
+                <li class="flex items-center">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-phone-line text-gray-400"></i>
+                  </div>
+                  <span class="text-gray-400">0716 393 718</span>
+                </li>
+                <li class="flex items-center">
+                  <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-mail-line text-gray-400"></i>
+                  </div>
+                  <span class="text-gray-400">
+                    genesisonionnurseries@gmail.com
+                  </span>
+                </li>
+              </ul>
+              <div class="flex space-x-4 mt-4">
+                <a
+                  href="https://www.facebook.com/profile.php?id=61563010157563"
+                  target="_blank"
+                  class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors"
+                >
+                  <i class="ri-facebook-fill text-white"></i>
+                </a>
+                <a
+                  href="https://www.instagram.com/genesisonionnurseries/"
+                  target="_blank"
+                  class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors"
+                >
+                  <i class="ri-instagram-line text-white"></i>
+                </a>
+                {/*{/*<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors">
+<i class="ri-twitter-x-line text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors">
+<i class="ri-pinterest-line text-white"></i>
+</a>*/}
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 Genesis Onion Nurseries. All rights reserved.</p>
+            <div class="mt-2 flex justify-center gap-1">
+              <p class="">Designed by</p>
+              <p class="animate-color-cycle">Eugene Westley</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <script>
+        document.addEventListener("DOMContentLoaded", function (){" "}
+        {
+          // Mobile menu toggle functionality could be added here
+        }
+        );
+      </script>
+    </>
+  );
+}
+
+export default App;
